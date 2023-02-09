@@ -69,7 +69,7 @@ public class Program
 
             if (n == 3) {
                 Console.Clear();
-                Console.WriteLine("Студенты должнеки");
+                Console.WriteLine("Студенты должники");
                 int num = 0;
                 for (int i = 0; i < array.Count; i++) {
                         if (array[i].getGrape() == 0) {
