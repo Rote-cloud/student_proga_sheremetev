@@ -1,0 +1,115 @@
+using System;
+
+public class Program
+    {
+    public static void revesed(int[] array) {
+        Array.Reverse(array);
+    }
+    public static void sort(int[] array) {
+        Array.Sort(array);
+    }
+    public static void clear(int[] array) {
+        Array.Clear(array);
+    }
+    public static int search(int[] array, int value) {
+        return Array.BinarySearch(array, value);
+    }
+    public static void arraycopy(int[] array, int[] arr_copy) {
+        Array.Copy(array, arr_copy, array.Length);
+    }
+    public static int indexOf(int[] array, int el) {
+        return Array.IndexOf(array, el);
+    }
+    public static int len(int[] array) {
+        return array.Length;
+    }
+    public static object getValue(int[] array, int num) {
+        return array.GetValue(num);
+    }
+    public static string toString(int[] array) {
+        return array.ToString();
+    }
+
+    static void Main() {
+        int[] arr = {8, 5, 0, 3, 3, 9, 1, 4, 5, 10}, arrcopy = {};
+        while(true) {
+            Console.Clear();
+            Console.WriteLine("1. Задание массива");
+            Console.WriteLine("2. Переворот массива");
+            Console.WriteLine("3. Сортировка");
+            Console.WriteLine("4. Бинарный поиск");
+            Console.WriteLine("5. Очистка массива");
+            Console.WriteLine("6. Копирование массива");
+            Console.WriteLine("7. Длина массива");
+            Console.WriteLine("8. Индекс элемента");
+            Console.WriteLine("9. GetValue");
+            Console.WriteLine("10. Перевод в строку");
+            Console.WriteLine("11. Выход");
+
+            int n = Convert.ToInt32(Console.ReadLine());
+            if (n == 1) {
+                Console.Clear();
+                Console.WriteLine("Введите количество элементов в массиве");
+                int num = Convert.ToInt32(Console.ReadLine());
+                arr = new int[num];
+                String[] array = Console.ReadLine().Split(" ");
+                for (int i = 0; i < num; i++) {
+                    arr[i] = Convert.ToInt32(array[i]);
+                }
+            }
+            if (n == 2) {
+                revesed(arr);
+            }
+            if (n == 3) {
+                sort(arr);
+            }
+            if (n == 4) {
+                int num = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine(search(arr, num));
+                while(true) {
+                    String str = Console.ReadLine();
+                    break;
+                }
+            }
+            if (n == 5) {
+                clear(arr);
+            }
+            if (n == 6) {
+                arraycopy(arr, arrcopy);
+            }
+            if (n == 7) {
+                Console.WriteLine(len(arr));
+                while(true) {
+                    String str = Console.ReadLine();
+                    break;
+                }
+            }
+            if (n == 8) {
+                int num = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine(indexOf(arr, num));
+                while(true) {
+                    String str = Console.ReadLine();
+                    break;
+                }
+            }
+            if (n == 9) {
+                Console.WriteLine(getValue(arr, Convert.ToInt32(Console.ReadLine())));
+                while(true) {
+                    String str = Console.ReadLine();
+                    break;
+                }
+            }
+            if (n == 10) {
+                Console.WriteLine(toString(arr));
+                while(true) {
+                    String str = Console.ReadLine();
+                    break;
+                }
+            }
+            if (n == 11) {
+                break;
+            }
+
+        }
+}
+    }
