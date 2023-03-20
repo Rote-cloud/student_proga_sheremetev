@@ -14,6 +14,7 @@ arr = np.array([[0, 7, 0, 0, 9, 2, 0, 0, 0, 0, 0, 0],
        [0, 0, 0, 0, 0, 0, 0, 5, 1, 0, 3, 0]])
 arr = np.where(arr == 0, max_int32, arr)
 size = arr.shape[0]
+
 for k in range(size):
        for i in range(size):
               for j in range(size):
