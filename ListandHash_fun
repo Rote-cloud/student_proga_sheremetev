@@ -1,0 +1,169 @@
+using System;
+using System.Collections;
+public class Program
+    {
+
+    static void Main() {
+        ArrayList arr = new ArrayList();
+        Hashtable arrHash = new Hashtable(), arrcopyHash;
+        int[] arrcopy;
+        while(true) {
+            Console.Clear();
+            Console.WriteLine("ArrayList");
+            Console.WriteLine("1. Задание массива");
+            Console.WriteLine("2. Переворот массива");
+            Console.WriteLine("3. Сортировка");
+            Console.WriteLine("4. GetRange");
+            Console.WriteLine("5. Очистка массива");
+            Console.WriteLine("6. Копирование массива");
+            Console.WriteLine("7. Длина массива");
+            Console.WriteLine("8. Индекс элемента");
+            Console.WriteLine("9. Contains");
+            Console.WriteLine("10. Удалить несколько элементов");
+            Console.WriteLine("Hashtable");
+            Console.WriteLine("11. Задание массива");
+            Console.WriteLine("12. Вернуть все ключи");
+            Console.WriteLine("13. Вернуть все значения");
+            Console.WriteLine("14. Вернуть значение ключа");
+            Console.WriteLine("15. Удалить элемент");
+            Console.WriteLine("16. Удалить все элементы");
+            Console.WriteLine("17. Содержит ли ключ?");
+            Console.WriteLine("18. Содержит ли значение?");
+            Console.WriteLine("19. Хэш-код массива");
+            Console.WriteLine("20. Копирование");
+            Console.WriteLine("21. Выход");
+
+            int n = Convert.ToInt32(Console.ReadLine());
+            if (n == 1) {
+                Console.Clear();
+                Console.WriteLine("Введите количество элементов в массиве");
+                int num = Convert.ToInt32(Console.ReadLine());
+                for (int i = 0; i < num; i++) {
+                    arr.Add(Convert.ToInt32(Console.ReadLine()));
+                }
+            }
+            if (n == 2) {
+                arr.Reverse();
+            }
+            if (n == 3) {
+                arr.Sort();
+            }
+            if (n == 4) {
+                int num = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine(arr.GetRange(num, Convert.ToInt32(Console.ReadLine())));
+                while(true) {
+                    String str = Console.ReadLine();
+                    break;
+                }
+            }
+            if (n == 5) {
+                arr.Clear();
+            }
+            if (n == 6) {
+                arrcopy = new int[arr.Count];
+                arr.CopyTo(arrcopy);
+            }
+            if (n == 7) {
+                Console.WriteLine(arr.Count);
+                while(true) {
+                    String str = Console.ReadLine();
+                    break;
+                }
+            }
+            if (n == 8) {
+                int num = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine(arr.IndexOf(num));
+                while(true) {
+                    String str = Console.ReadLine();
+                    break;
+                }
+            }
+            if (n == 9) {
+                Console.WriteLine(arr.Contains(Convert.ToInt32(Console.ReadLine())));
+                while(true) {
+                    String str = Console.ReadLine();
+                    break;
+                }
+            }
+            if (n == 10) {
+                int num = Convert.ToInt32(Console.ReadLine());
+                arr.RemoveRange(num, Convert.ToInt32(Console.ReadLine()));
+                while(true) {
+                    String str = Console.ReadLine();
+                    break;
+                }
+            }
+
+
+            if (n == 11) {
+                Console.Clear();
+                Console.WriteLine("Введите количество элементов в массиве");
+                int num = Convert.ToInt32(Console.ReadLine());
+                for (int i = 0; i < num; i++) {
+                    string[] str = Console.ReadLine().Split(" ");
+                    arrHash[str[0]] = str[1];
+                }
+            }
+            if (n == 12) {
+                Console.WriteLine(arrHash.Keys);
+                while(true) {
+                    String str = Console.ReadLine();
+                    break;
+                }
+            }
+            if (n == 13) {
+                Console.WriteLine(arrHash.Values);
+                while(true) {
+                    String str = Console.ReadLine();
+                    break;
+                }
+            }
+            if (n == 14) {
+                Console.WriteLine(arrHash[Console.ReadLine()]);
+                while(true) {
+                    String str = Console.ReadLine();
+                    break;
+                }
+            }
+            if (n == 15) {
+                String str = Console.ReadLine();
+                arrHash.Remove(str);
+                while(true) {
+                    str = Console.ReadLine();
+                    break;
+                }
+            }
+            if (n == 16) {
+                arrHash.Clear();
+            }
+            if (n == 17) {
+                Console.WriteLine(arrHash.ContainsKey(Console.ReadLine()));
+                while(true) {
+                    String str = Console.ReadLine();
+                    break;
+                }
+            }
+            if (n == 18) {
+                Console.WriteLine(arrHash.ContainsValue(Console.ReadLine()));
+                while(true) {
+                    String str = Console.ReadLine();
+                    break;
+                }
+            }
+            if (n == 19) {
+                Console.WriteLine(arrHash.GetHashCode());
+                while(true) {
+                    String str = Console.ReadLine();
+                    break;
+                }
+            }
+            if (n == 20) {
+                arrcopyHash = (Hashtable) arrHash.Clone();
+            }
+            if (n == 21) {
+                break;
+            }
+
+        }
+}
+    }
