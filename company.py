@@ -47,3 +47,6 @@ while True:
                 worker[boss[0]] = Worker([subordinates])
         else:
             worker[boss[0]].addWorker(subordinates)
+
+# дана строка которая включает в себя 3 вида скобок, определить правильно ли раставлены скобки (), [], {}
+# sortlist, list, словарь, очередь, стек,
