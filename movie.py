@@ -1,5 +1,6 @@
 import datetime as dt
 import os
+import copy
 
 class System:
     def __init__(self):
@@ -17,44 +18,46 @@ class System:
         if name_cinema in self.cinema:
             if height > 0 and wigth > 0:
                 self.cinema[name_cinema].add_hall(wigth, height)
-                self.cinema[name_cinema].add_seat_configuration(wigth, height)
+                #1self.cinema[name_cinema].add_seat_configuration(wigth, height)
             else:
                 print("Количество рядов и мест должно быть больше 0")
         else:
             print(f"Добавьте сначала кинотеатр {name_cinema} в систему")
 
     def add_sessions(self, name_movie, name_cinema, num_hall):
-        print("Введите дату сеанса в формате: 05-22-2017 12:30")
+        print("Введите дату сеанса в формате: 22-05-2017 12:30")
         date = input()
         print("Введите сколько будет длиться фильм в формате: 1:30")
-        duration = input()
-        date = dt.datetime.strptime(date, '%Y-%m-%d %H:%M')
-        duration = dt.datetime.strptime(duration, '%H:%M')
+        duration = [int(i) for i in input().split(":")]
+        date = dt.datetime.strptime(date, '%d-%m-%Y %H:%M')
+        #duration = dt.datetime.strptime(duration, '%H:%M')
+        duration = dt.time(hour=duration[0], minute=duration[1])
         self.cinema[name_cinema].get_hall()[num_hall].add_sessions(name_movie, date, duration)
 
-    def search_movie(self, name_movie, number_of_seats):
+    def search_movie(self, name_movie):
         self.found_sessions = {}
         for cinema in self.cinema.values():
             for num, hall in cinema.get_hall().items():
-                sessions = hall.search_movie(name_movie, number_of_seats)
+                sessions = hall.search_movie(name_movie)
                 for date_ses, ses in sessions.items():
                     self.found_sessions[date_ses] = [cinema.get_name_cinema(), num, ses]
         if len(self.found_sessions) > 0:
             next_ses = min(self.found_sessions.keys())
             self.found_sessions = {next_ses: self.found_sessions[next_ses]}
             print(f"Кинотеатр: {self.found_sessions[next_ses][0]}, Зал: {self.found_sessions[next_ses][1]}, Дата и время сеанса: {next_ses},  длительность фильма: {self.found_sessions[next_ses][2].get_duration()}")
-            self.seat_reservation(number_of_seats)
+            self.seat_reservation()
         else:
             print("Данного фильма либо не существует, либо нет достаточного количества свободных мест")
 
-    def seat_reservation(self, number_of_seats):
-        print(self.found_sessions.values()[2].get_hall())
-        print("Выберете подходящие места по одному за раз")
-        for i in range(number_of_seats):
-            self.found_sessions.values()[2].choice_of_location(input())
+    def seat_reservation(self):
+        ses_value = list(self.found_sessions.values())[0][2]
+        print(ses_value.get_hall(), "\n_ - это занятые места")
+        print("Выберете подходящие место")
+        ses_value.choice_of_location(input())
 
     def get_names_cinema(self):
         return list(self.cinema.keys())
+
 
 class Cinema:
     def __init__(self, name_cinema):
@@ -62,8 +65,9 @@ class Cinema:
         self.hall = {}
 
     def add_hall(self, wigth, height):
-        self.hall[len(self.hall) + 1] = Hall()
-        self.hall[-1].add_seat_configuration(wigth, height)
+        len_hall = len(self.hall) + 1
+        self.hall[len_hall] = Hall()
+        self.hall[len_hall].add_seat_configuration(wigth, height)
 
     def get_hall(self):
         return self.hall
@@ -86,16 +90,15 @@ class Hall:
                 self.seat_configuration[i].append(f"{i + 1}-{j + 1}")
 
     def add_sessions(self, name_movie, date, duration):
-        self.sessions[date] = Movie(duration, name_movie)
+        self.sessions[date] = Movie(date, duration, name_movie)
         self.sessions[date].set_hall(self.seat_configuration)
         self.sessions[date].set_free_places(self.number_of_seats)
 
-    def search_movie(self, name, number_of_seats):
+    def search_movie(self, name):
         sessions = {}
         for date_ses, ses in self.sessions.items():
-            if ses.get_name_movie() == name and ses.get_hall().get_free_places(number_of_seats):
-                sessions[date_ses] = ses.get_duration()
-                #print(f"Дата и время сеанса: {date_seas},  длительность фильма: {seas.get_duration()}")
+            if ses.get_name_movie() == name and ses.get_free_places():
+                sessions[date_ses] = ses
         return sessions
 
     def get_sessions(self):
@@ -110,10 +113,12 @@ class Movie:
         self.duration = duration
         self.name_movie = name_movie
         self.hall = []
+        self.free_places = 0
 
     def choice_of_location(self, location):
         row, col = [int(i) - 1 for i in location.split("-")]
-        self.hall[row, col] = "_"
+        self.hall[row][col] = "_"
+        self.free_places -= 1
 
     def get_duration(self):
         return self.duration
@@ -127,18 +132,13 @@ class Movie:
     def get_date(self):
         return self.date
 
-    def get_free_places(self, number_of_seats):
-        try:
-            for i in range(len(self.hall)):
-                for j in range(len(i) - number_of_seats):
-                    if "_" not in self.hall[i][j : j + number_of_seats]:
-                        return True
-            return False
-        except Exception:
-            return False
+    def get_free_places(self):
+        if self.free_places > 0:
+            return True
+        return False
 
     def set_hall(self, hall):
-        self.hall = hall
+        self.hall = copy.deepcopy(hall)
 
     def set_free_places(self, free_places):
         self.free_places = free_places
@@ -171,9 +171,9 @@ def main():
             system.add_sessions(inp[0], inp[1], int(inp[2]))
         elif n == "4":
             clear()
-            print("Введите название фильма и общее количество людей которые пойдут на фильм")
-            inp = input().split(" ")
-            system.search_movie(inp[0], int(inp[1]))
+            print("Введите название фильма")
+            inp = input()
+            system.search_movie(inp)
         elif n == "5":
             break
 

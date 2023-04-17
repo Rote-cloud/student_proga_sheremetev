@@ -11,8 +11,6 @@ arr = np.where(arr == 0, max_int, arr)
 arr_copy = arr.copy()
 col = [i for i in range(arr.shape[0])]
 row = col.copy()
-#arr_copy = np.delete(arr_copy, n, axis=0)
-#arr_copy = np.delete(arr_copy, m, axis=1)
 way = {}
 output = 0
 while arr_copy.shape[0] > 1:
