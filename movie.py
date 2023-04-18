@@ -1,5 +1,4 @@
 import datetime as dt
-import os
 import copy
 
 class System:
@@ -105,6 +104,7 @@ class Hall:
     def get_seat_configuration(self):
         return self.seat_configuration
 
+
 class Movie:
     def __init__(self, date, duration, name_movie):
         self.date = date
@@ -141,37 +141,35 @@ class Movie:
     def set_free_places(self, free_places):
         self.free_places = free_places
 
-def clear():
-    os.system('cls')
 
 def main():
     system = System()
     while True:
-        clear()
         print("1. Добавить кинотеатр \n2. Добавить зал в кинотеатре "
               "\n3. Создать сеанс фильма \n4. Поиск ближайшего сеанса фильма \n5. Выход из системы")
         n = input()
+
         if n == "1":
-            clear()
             print("Введите имя кинотеатра:")
             name_cinema = input()
             system.add_cinema(name_cinema)
+
         elif n == "2":
-            clear()
             print(f"Все кинотеатры доступные системе: {system.get_names_cinema()}")
             print("Введите имя кинотеатра с количеством рядов и мест в каждом ряде в 1 строчку")
             inp = input().split(" ")
             system.add_hall(inp[0], int(inp[1]), int(inp[2]))
+
         elif n == "3":
-            clear()
             print("Введите название фильма, имя кинотеатра в котором будет проходить кино и номер зала")
             inp = input().split(" ")
             system.add_sessions(inp[0], inp[1], int(inp[2]))
+
         elif n == "4":
-            clear()
             print("Введите название фильма")
             inp = input()
             system.search_movie(inp)
+
         elif n == "5":
             break
 
