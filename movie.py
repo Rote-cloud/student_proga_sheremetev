@@ -18,7 +18,6 @@ class System:
         if name_cinema in self.cinema:
             if height > 0 and wigth > 0:
                 self.cinema[name_cinema].add_hall(wigth, height)
-                #1self.cinema[name_cinema].add_seat_configuration(wigth, height)
             else:
                 print("Количество рядов и мест должно быть больше 0")
         else:
@@ -30,7 +29,6 @@ class System:
         print("Введите сколько будет длиться фильм в формате: 1:30")
         duration = [int(i) for i in input().split(":")]
         date = dt.datetime.strptime(date, '%d-%m-%Y %H:%M')
-        #duration = dt.datetime.strptime(duration, '%H:%M')
         duration = dt.time(hour=duration[0], minute=duration[1])
         self.cinema[name_cinema].get_hall()[num_hall].add_sessions(name_movie, date, duration)
 
