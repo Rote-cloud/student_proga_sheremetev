@@ -1,0 +1,62 @@
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+        var calc = new Calculator();
+        int a = Convert.ToInt32(Console.ReadLine());
+        int b = Convert.ToInt32(Console.ReadLine());
+        calc.Add(a, b);
+        calc.Subtract(a, b);
+        calc.Multiply(a, b);
+        calc.Divide(a, b);
+    }
+}
+
+class Calculator
+{
+    public event EventHandler<double> Added;
+    public event EventHandler<double> Subtracted;
+    public event EventHandler<double> Multiplied;
+    public event EventHandler<double> Divided;
+
+    public void Add(int a, int b)
+    {
+        double result = a + b;
+        Added?.Invoke(this, result);
+    }
+
+    public void Subtract(int a, int b)
+    {
+        double result = a - b;
+        Subtracted?.Invoke(this, result);
+    }
+
+    public void Multiply(int a, int b)
+    {
+        double result = a * b;
+        Multiplied?.Invoke(this, result);
+    }
+
+    public void Divide(int a, int b)
+    {
+        if (b == 0)
+        {
+            Console.WriteLine("Нельзя делить на 0");
+        }
+        double result = a / b;
+        Divided?.Invoke(this, result);
+    }
+
+    public void ToString(object classes, double result)
+    {
+        EventHandler<double> classMethod = classes as EventHandler<double>;
+        if (classes != null)
+        {
+            Console.WriteLine($"{classMethod.Method.Name}: {result}");
+        }
+    }
+}
