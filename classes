@@ -1,0 +1,48 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Reflection;
+using Telegram.Bot.Requests;
+
+class Program
+{
+
+
+    static void Main(string[] args)
+    {
+        
+    }
+}
+
+class Arr<T>
+{
+    T[] arr;
+    int len = 0;
+
+    Arr(int count) {
+        this.arr = new T[count];
+}
+
+    public void Add(T item)
+    {
+        arr[len] = item;
+        len++;
+    }
+
+    public void Del(T item)
+    {
+        int index = Array.IndexOf(arr, item);
+        for (int i = 0; i < len - 1; i++)
+        {
+            if (i == index)
+            {
+                arr[i] = arr[i + 1];
+            }
+        }
+    }
+
+    public T Index(int index)
+    {
+        return arr[index];
+    }
+}
