@@ -1,14 +1,53 @@
+using Microsoft.Office.Interop.Excel;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 
 public class Program
 {
+    public static bool Brackets(string str)
+    {
+        char[] brackets_open = { '(', '[', '{' }, brackets_close = { ')', ']', '}' };
+
+        if (str.Length != 1)
+        {
+            return false;
+        }
+
+        char[] arr = str.ToArray();
+
+        for(int i = 0; i < 3; i++)
+        {
+            int count = 0;
+            for (int j = 0; j < arr.Length; j++)
+            {
+                if (arr[j] == brackets_open[i])
+                {
+                    count++;
+                }
+                if (arr[j] == brackets_close[i])
+                {
+                    if (count <= 0)
+                    {
+                        return false;
+                        count--;
+                    }
+                }
+            }
+            if (count != 0)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 
     static void Main()
     {
         List<int> arr = new();
         HashSet<int> set = new HashSet<int>();
+        Stack<int> stack = new Stack<int>();
         int[] arrcopy;
         while (true)
         {
@@ -34,8 +73,19 @@ public class Program
                 "17.  Remove" + '\n' +
                 "18.  GetType" + '\n' +
                 "19.  ToString" + '\n' +
-                "20. Equals" + '\n' +
-                "21. break");
+                "20. Equals");
+            Console.WriteLine("21.  Push" + '\n' +
+                "22.  Clear" + '\n' +
+                "23.  CopyTo" + '\n' +
+                "24.  Contains" + '\n' +
+                "25.  Peek" + '\n' +
+                "26.  GetHashCode" + '\n' +
+                "27.  Pop" + '\n' +
+                "28.  GetType" + '\n' +
+                "29.  ToString" + '\n' +
+                "30. Equals" + '\n' +
+                "31. Скобки" + '\n' +
+                "22. break");
 
             int n = Convert.ToInt32(Console.ReadLine());
             if (n == 1)
@@ -160,7 +210,62 @@ public class Program
                 Console.WriteLine(set.Equals(set));
                 Console.ReadLine();
             }
+
             if (n == 21)
+            {
+                stack.Push(Convert.ToInt32(Console.ReadLine()));
+            }
+            else if (n == 22)
+            {
+                stack.Clear();
+            }
+            else if (n == 23)
+            {
+                arrcopy = new int[stack.Count];
+                stack.CopyTo(arrcopy, stack.Count);
+            }
+            else if (n == 24)
+            {
+                Console.WriteLine(stack.Contains(Convert.ToInt32(Console.ReadLine())));
+                Console.ReadLine();
+            }
+            else if (n == 25)
+            {
+                Console.WriteLine(stack.Peek());
+                Console.ReadLine();
+            }
+            else if (n == 26)
+            {
+                Console.WriteLine(stack.GetHashCode());
+                Console.ReadLine();
+            }
+            else if (n == 27)
+            {
+                stack.Pop();
+            }
+            else if (n == 28)
+            {
+                Console.WriteLine(stack.GetType());
+                Console.ReadLine();
+            }
+            else if (n == 29)
+            {
+                Console.WriteLine(stack.ToString());
+                Console.ReadLine();
+            }
+            else if (n == 30)
+            {
+                Console.WriteLine(stack.Equals(stack));
+                Console.ReadLine();
+            }
+
+            else if (n == 31)
+            {
+                Console.WriteLine(Brackets(Console.ReadLine()));
+                Console.ReadLine();
+            }
+
+            if (n == 32)
             {
                 break;
             }
