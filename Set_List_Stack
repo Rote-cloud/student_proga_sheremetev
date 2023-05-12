@@ -1,0 +1,273 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+
+public class Program
+{
+    public static bool Brackets(string str)
+    {
+        char[] brackets_open = { '(', '[', '{' }, brackets_close = { ')', ']', '}' };
+
+        if (str.Length != 1)
+        {
+            return false;
+        }
+
+        char[] arr = str.ToArray();
+
+        for(int i = 0; i < 3; i++)
+        {
+            int count = 0;
+            for (int j = 0; j < arr.Length; j++)
+            {
+                if (arr[j] == brackets_open[i])
+                {
+                    count++;
+                }
+                if (arr[j] == brackets_close[i])
+                {
+                    if (count <= 0)
+                    {
+                        return false;
+                        count--;
+                    }
+                }
+            }
+            if (count != 0)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    static void Main()
+    {
+        List<int> arr = new();
+        HashSet<int> set = new HashSet<int>();
+        Stack<int> stack = new Stack<int>();
+        int[] arrcopy;
+        while (true)
+        {
+            Console.Clear();
+            Console.WriteLine("List");
+            Console.WriteLine("1.  Add" + '\n' +
+                    "2.  Clear" + '\n' +
+                    "3.  CopyTo" + '\n' +
+                    "4.  ContainsValue" + '\n' +
+                    "5.  ContainsKey" + '\n' +
+                    "6.  GetHashCode" + '\n' +
+                    "7.  Remove" + '\n' +
+                    "8.  GetType" + '\n' +
+                    "9.  ToString" + '\n' +
+                    "10. Equals");
+            Console.WriteLine("Set");
+            Console.WriteLine("11.  Add" + '\n' +
+                "12.  Clear" + '\n' +
+                "13.  CopyTo" + '\n' +
+                "14.  ContainsValue" + '\n' +
+                "15.  Reverse" + '\n' +
+                "16.  GetHashCode" + '\n' +
+                "17.  Remove" + '\n' +
+                "18.  GetType" + '\n' +
+                "19.  ToString" + '\n' +
+                "20. Equals");
+            Console.WriteLine("21.  Push" + '\n' +
+                "22.  Clear" + '\n' +
+                "23.  CopyTo" + '\n' +
+                "24.  Contains" + '\n' +
+                "25.  Peek" + '\n' +
+                "26.  GetHashCode" + '\n' +
+                "27.  Pop" + '\n' +
+                "28.  GetType" + '\n' +
+                "29.  ToString" + '\n' +
+                "30. Equals" + '\n' +
+                "31. Скобки" + '\n' +
+                "22. break");
+
+            int n = Convert.ToInt32(Console.ReadLine());
+            if (n == 1)
+            {
+                Console.Clear();
+                Console.WriteLine("Введите количество элементов в массиве");
+                int num = Convert.ToInt32(Console.ReadLine());
+                for (int i = 0; i < num; i++)
+                {
+                    arr.Add(Convert.ToInt32(Console.ReadLine()));
+                }
+            }
+            if (n == 2)
+            {
+                arr.Reverse();
+            }
+            if (n == 3)
+            {
+                arr.Sort();
+            }
+            if (n == 4)
+            {
+                int num = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine(arr.GetRange(num, Convert.ToInt32(Console.ReadLine())));
+                while (true)
+                {
+                    String str = Console.ReadLine();
+                    break;
+                }
+            }
+            if (n == 5)
+            {
+                arr.Clear();
+            }
+            if (n == 6)
+            {
+                arrcopy = new int[arr.Count];
+                arr.CopyTo(arrcopy);
+            }
+            if (n == 7)
+            {
+                Console.WriteLine(arr.Count);
+                while (true)
+                {
+                    String str = Console.ReadLine();
+                    break;
+                }
+            }
+            if (n == 8)
+            {
+                int num = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine(arr.IndexOf(num));
+                while (true)
+                {
+                    String str = Console.ReadLine();
+                    break;
+                }
+            }
+            if (n == 9)
+            {
+                Console.WriteLine(arr.Contains(Convert.ToInt32(Console.ReadLine())));
+                while (true)
+                {
+                    String str = Console.ReadLine();
+                    break;
+                }
+            }
+            if (n == 10)
+            {
+                int num = Convert.ToInt32(Console.ReadLine());
+                arr.RemoveRange(num, Convert.ToInt32(Console.ReadLine()));
+                while (true)
+                {
+                    String str = Console.ReadLine();
+                    break;
+                }
+            }
+
+            if (n == 11)
+            {
+                set.Add(Convert.ToInt32(Console.ReadLine()));
+            }
+            else if (n == 12)
+            {
+                set.Clear();
+            }
+            else if (n == 13)
+            {
+                arrcopy = new int[set.Count];
+                set.CopyTo(arrcopy);
+            }
+            else if (n == 14)
+            {
+                Console.WriteLine(set.Contains(Convert.ToInt32(Console.ReadLine())));
+            }
+            else if (n == 15)
+            {
+                set.Reverse();
+            }
+            else if (n == 16)
+            {
+                Console.WriteLine(set.GetHashCode());
+                Console.ReadLine();
+            }
+            else if (n == 17)
+            {
+                set.Remove(Convert.ToInt32(Console.ReadLine()));
+                Console.ReadLine();
+            }
+            else if (n == 18)
+            {
+                Console.WriteLine(set.GetType());
+                Console.ReadLine();
+            }
+            else if (n == 19)
+            {
+                Console.WriteLine(set.ToString());
+                Console.ReadLine();
+            }
+            else if (n == 20)
+            {
+                Console.WriteLine(set.Equals(set));
+                Console.ReadLine();
+            }
+
+            if (n == 21)
+            {
+                stack.Push(Convert.ToInt32(Console.ReadLine()));
+            }
+            else if (n == 22)
+            {
+                stack.Clear();
+            }
+            else if (n == 23)
+            {
+                arrcopy = new int[stack.Count];
+                stack.CopyTo(arrcopy, stack.Count);
+            }
+            else if (n == 24)
+            {
+                Console.WriteLine(stack.Contains(Convert.ToInt32(Console.ReadLine())));
+                Console.ReadLine();
+            }
+            else if (n == 25)
+            {
+                Console.WriteLine(stack.Peek());
+                Console.ReadLine();
+            }
+            else if (n == 26)
+            {
+                Console.WriteLine(stack.GetHashCode());
+                Console.ReadLine();
+            }
+            else if (n == 27)
+            {
+                stack.Pop();
+            }
+            else if (n == 28)
+            {
+                Console.WriteLine(stack.GetType());
+                Console.ReadLine();
+            }
+            else if (n == 29)
+            {
+                Console.WriteLine(stack.ToString());
+                Console.ReadLine();
+            }
+            else if (n == 30)
+            {
+                Console.WriteLine(stack.Equals(stack));
+                Console.ReadLine();
+            }
+
+            else if (n == 31)
+            {
+                Console.WriteLine(Brackets(Console.ReadLine()));
+                Console.ReadLine();
+            }
+
+            if (n == 32)
+            {
+                break;
+            }
+
+        }
+    }
+}
