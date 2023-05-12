@@ -8,7 +8,7 @@ for i in range(n):
     max_el = max(max_el, input_arr[1])
     list_arr.append(input_arr)
 
-arr = np.ones((max_el, max_el))
+arr = np.zeros((max_el, max_el))
 for el in list_arr:
     arr[el[0] - 1, el[1] - 1] = el[2]
 arr = [list(arr[i, :]) for i in range(max_el)]
@@ -52,4 +52,5 @@ while True:
         arr[par][vertex_subtraction] -= max_int
         arr[vertex_subtraction][par] += max_int
         vertex_subtraction = par
+print(way)
 print(way * 24)
