@@ -6,38 +6,43 @@ public class Program
 {
     public static bool Brackets(string str)
     {
-        char[] brackets_open = { '(', '[', '{' }, brackets_close = { ')', ']', '}' };
+        char[] brackets = { ')', ']', '}', '(', '[', '{' };
 
         if (str.Length != 1)
         {
             return false;
         }
-
+        Stack<char> stack = new Stack<char>();
         char[] arr = str.ToArray();
-
-        for(int i = 0; i < 3; i++)
+        for (int i = 0; i < arr.Length; i++)
         {
-            int count = 0;
-            for (int j = 0; j < arr.Length; j++)
+            stack.Push(arr[i]);
+        }
+
+        int[] count_bracket = { 0, 0, 0 };
+        while (stack.Count > 0)
+        {
+            char bracket = stack.Pop();
+            int index = Array.IndexOf(brackets, bracket);
+            if (index < 3 )
             {
-                if (arr[j] == brackets_open[i])
+                count_bracket[index]++;
+            } else
+            {
+                if (count_bracket[brackets.Length - index - 1] > 0)
                 {
-                    count++;
+                    count_bracket[brackets.Length - index - 1]--;
                 }
-                if (arr[j] == brackets_close[i])
+                else
                 {
-                    if (count <= 0)
-                    {
-                        return false;
-                    } else {
-                        count--;
-                    }
+                    return false;
                 }
             }
-            if (count != 0)
-            {
-                return false;
-            }
+
+        }
+        if (count_bracket.Sum() > 0)
+        {
+            return false;
         }
         return true;
     }
