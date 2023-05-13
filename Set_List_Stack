@@ -29,6 +29,7 @@ public class Program
                     if (count <= 0)
                     {
                         return false;
+                    } else {
                         count--;
                     }
                 }
@@ -83,7 +84,7 @@ public class Program
                 "29.  ToString" + '\n' +
                 "30. Equals" + '\n' +
                 "31. Скобки" + '\n' +
-                "22. break");
+                "32. break");
 
             int n = Convert.ToInt32(Console.ReadLine());
             if (n == 1)
