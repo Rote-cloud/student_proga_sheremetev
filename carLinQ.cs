@@ -14,12 +14,6 @@ public class Program
 {
     static void Main()
     {
-        List<Car> cars = new List<Car>
-            {
-                new Car{Id = 1 },
-                new Car{Id = 2 },
-                new Car{Id = 3 },
-            };
         List<Car> drivers = new List<Car>
             {
                 new Car{ DriverName = "Vyacheslav", DriverSurename = "Izengardovich", Id = 3},
