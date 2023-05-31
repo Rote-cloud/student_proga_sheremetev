@@ -1,3 +1,4 @@
+using Microsoft.Office.Interop.Word;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -48,32 +49,39 @@ public class Program
                 new SupplyGoods { product = products[0], date = "25.01.2023", provider = providers[1], count=1},
                 new SupplyGoods { product = products[1], date = "24.01.2020", provider = providers[2], count=547},
                 new SupplyGoods { product = products[1], date = "23.07.2019", provider = providers[3], count=2},
-                new SupplyGoods { product = products[2], date = "25.01.2000", provider = providers[4], count=1436},
+                new SupplyGoods { product = products[2], date = "25.01.2023", provider = providers[4], count=1436},
                 new SupplyGoods { product = products[2], date = "20.05.2023", provider = providers[5], count=43543},
 
             };
 
-        foreach (SupplyGoods i in from p in supplies
-                          where p.date == "20.05.2023"
-                                  select p)
+        foreach (var i in from p in supplies group p by p.date)
         {
-            Console.Write(i.provider.Name + " " + i.count + "   ");
+            Console.WriteLine(i.Key);
+            foreach(SupplyGoods supp in i)
+            {
+                Console.Write(supp.provider.Name + " " + supp.count + "   ");
+            }
+            Console.WriteLine();
         }
         Console.WriteLine();
-
-        foreach (SupplyGoods i in from p in supplies
-                                  where p.product == products[2]
-                                  select p)
+        foreach (var i in from p in supplies group p by p.product.Name)
         {
-            Console.Write(i.provider.Name + " ");
+            Console.WriteLine(i.Key);
+            foreach (SupplyGoods supp in i)
+            {
+                Console.Write(supp.provider.Name + " ");
+            }
+            Console.WriteLine();
         }
         Console.WriteLine();
-
-        foreach (SupplyGoods i in from p in supplies
-                                  where p.provider == providers[1]
-                                  select p)
+        foreach (var i in from p in supplies group p by p.provider.Name)
         {
-            Console.Write(i.provider.Name + " " + i.product.Name + "   ");
+            Console.WriteLine(i.Key);
+            foreach (SupplyGoods supp in i)
+            {
+                Console.Write(supp.provider.Name + " " + supp.product.Name + "   ");
+            }
+            Console.WriteLine();
         }
         Console.ReadLine();
     }
