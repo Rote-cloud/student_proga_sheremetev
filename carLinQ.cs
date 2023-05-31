@@ -6,8 +6,6 @@ using System.Linq;
 class Car
 {
     public int Id { get; set; }
-    public string DriverName { get; set; }
-    public string DriverSurename { get; set; }
 }
 
 class Driver
